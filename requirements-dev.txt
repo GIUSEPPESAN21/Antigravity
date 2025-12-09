@@ -1,0 +1,30 @@
+# Development and Testing Dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# First install production dependencies
+-r requirements.txt
+
+# Testing Framework
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Code Formatting
+black==23.12.1
+isort==5.13.2
+
+# Linting
+flake8==7.0.0
+
+# Type Checking
+mypy==1.7.1
+
+# Type Hints
+types-requests==2.31.0.10
+
+# Testing Helpers
+faker==21.0.0
+
+# Security Scanning
+safety==2.3.5
+bandit==1.7.5
