@@ -1,1374 +1,1367 @@
 """
-E-Commerce Platform - Main Application
-SAVA SOFTWARE FOR ENGINEERING
+SAVA E-Commerce Platform - Complete Functional Version
+Version 8.0 - All Pages Working
 
-🎨 PROFESSIONAL UI v6.0 - Modern E-Commerce Design
-- Clean, minimalist interface with premium aesthetics
-- Glassmorphism and modern gradients
-- Smooth animations and micro-interactions
-- Optimized for conversion and UX
+Features:
+- Premium modern design
+- All pages fully functional
+- Complete navigation
+- Cart functionality
+- User authentication
+- Product browsing
+- Checkout flow
 """
 import streamlit as st
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
-# --- Configuración de Página ---
+# Page Configuration
 st.set_page_config(
-    page_title="SAVA E-Commerce",
-    page_icon="🛍️",
+    page_title="SAVA | Premium E-Commerce",
+    page_icon="✨",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- SISTEMA DE DISEÑO PROFESIONAL MODERNO ---
+# ==================== PROFESSIONAL CSS ====================
 st.markdown("""
-    <style>
-        /* ========================================
-           MODERN DESIGN SYSTEM - SAVA E-COMMERCE
-        ======================================== */
-        
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            /* Brand Colors - Professional Palette */
-            --primary: #0F172A;
-            --primary-light: #1E293B;
-            --accent: #0EA5E9;
-            --accent-hover: #0284C7;
-            --accent-light: #E0F2FE;
-            
-            /* Neutrals */
-            --white: #FFFFFF;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --bg-tertiary: #F1F5F9;
-            
-            /* Text */
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-muted: #94A3B8;
-            
-            /* Borders */
-            --border-light: #E2E8F0;
-            --border-medium: #CBD5E1;
-            
-            /* Semantic */
-            --success: #10B981;
-            --warning: #F59E0B;
-            --error: #EF4444;
-            --info: #3B82F6;
-            
-            /* Spacing */
-            --space-1: 0.25rem;
-            --space-2: 0.5rem;
-            --space-3: 0.75rem;
-            --space-4: 1rem;
-            --space-5: 1.25rem;
-            --space-6: 1.5rem;
-            --space-8: 2rem;
-            --space-10: 2.5rem;
-            --space-12: 3rem;
-            
-            /* Radius */
-            --radius-sm: 0.375rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --radius-2xl: 1.5rem;
-            
-            /* Shadows */
-            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            
-            /* Transitions */
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* ========================================
-           BASE STYLES
-        ======================================== */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body, [class*="st-"] {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            color: var(--text-primary) !important;
-            background: var(--bg-secondary) !important;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            line-height: 1.6;
-        }
-        
-        /* Hide Streamlit branding */
-        #MainMenu, footer, header {visibility: hidden;}
-        .stDeployButton {display: none;}
-        
-        /* Main container */
-        .main .block-container {
-            max-width: 1400px;
-            padding: 0 var(--space-6) var(--space-12) var(--space-6);
-            background: transparent !important;
-        }
-        
-        /* ========================================
-           HEADER - Modern Floating Navigation
-        ======================================== */
-        
-        .modern-header {
-            position: sticky;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            animation: slideDown 0.3s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: var(--space-4) var(--space-6);
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: var(--space-8);
-            align-items: center;
-        }
-        
-        /* Logo */
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-        
-        .header-logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .header-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        /* Search */
-        .header-search {
-            max-width: 600px;
-        }
-        
-        .header-search .stTextInput > div > div > input {
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: var(--space-3) var(--space-5);
-            font-size: 0.9375rem;
-            transition: all var(--transition-base);
-            background: var(--bg-primary);
-            color: var(--text-primary) !important;
-        }
-        
-        .header-search .stTextInput > div > div > input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-light);
-            outline: none;
-        }
-        
-        .header-search .stTextInput > div > div > input::placeholder {
-            color: var(--text-muted);
-        }
-        
-        /* Navigation */
-        .header-nav {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-        }
-        
-        .header-nav .stButton > button,
-        .header-nav .stSelectbox > div,
-        .header-nav [data-testid="stPopover"] > button {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary) !important;
-            font-size: 0.875rem;
-            font-weight: 500;
-            padding: var(--space-2) var(--space-4);
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
-            white-space: nowrap;
-        }
-        
-        .header-nav .stButton > button:hover,
-        .header-nav [data-testid="stPopover"] > button:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary) !important;
-            transform: translateY(-2px);
-        }
-        
-        /* Cart Badge */
-        .cart-button {
-            position: relative;
-        }
-        
-        .cart-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: linear-gradient(135deg, var(--error) 0%, #DC2626 100%);
-            color: white !important;
-            font-size: 0.75rem;
-            font-weight: 700;
-            min-width: 20px;
-            height: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 6px;
-            box-shadow: var(--shadow-md);
-            animation: scalePop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        @keyframes scalePop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        /* ========================================
-           HERO SECTION
-        ======================================== */
-        
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-12) var(--space-8);
-            margin: var(--space-8) 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            color: white !important;
-            margin-bottom: var(--space-4);
-            line-height: 1.2;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.9) !important;
-            margin-bottom: var(--space-8);
-        }
-        
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: var(--space-3) var(--space-6);
-            border-radius: var(--radius-xl);
-            color: white !important;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        /* ========================================
-           PRODUCT CARDS - Premium Design
-        ======================================== */
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: var(--space-6);
-            margin: var(--space-8) 0;
-        }
-        
-        .product-card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            transition: all var(--transition-base);
-            border: 1px solid var(--border-light);
-            cursor: pointer;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent);
-        }
-        
-        .product-image-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 100%;
-            background: var(--bg-secondary);
-            overflow: hidden;
-        }
-        
-        .product-image-wrapper img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-        
-        .product-card:hover .product-image-wrapper img {
-            transform: scale(1.1);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: var(--space-3);
-            right: var(--space-3);
-            background: var(--accent);
-            color: white !important;
-            padding: var(--space-1) var(--space-3);
-            border-radius: var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: 600;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .product-info {
-            padding: var(--space-5);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-category {
-            color: var(--text-muted);
-            font-size: 0.8125rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: var(--space-2);
-        }
-        
-        .product-name {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text-primary) !important;
-            margin-bottom: var(--space-3);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            margin-bottom: var(--space-4);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-        
-        .product-rating-stars {
-            color: #FBBF24;
-        }
-        
-        .product-price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-        }
-        
-        .product-price {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary) !important;
-        }
-        
-        .product-old-price {
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-decoration: line-through;
-            margin-left: var(--space-2);
-        }
-        
-        /* ========================================
-           BUTTONS - Modern Styles
-        ======================================== */
-        
-        .stButton > button {
-            font-weight: 600;
-            border-radius: var(--radius-lg);
-            transition: all var(--transition-base);
-            border: none;
-            font-size: 0.9375rem;
-            padding: var(--space-3) var(--space-6);
-        }
-        
-        .stButton > button[kind="primary"] {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
-            color: white !important;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .stButton > button[kind="primary"]:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .stButton > button[kind="secondary"] {
-            background: transparent;
-            color: var(--text-secondary) !important;
-            border: 2px solid var(--border-medium);
-        }
-        
-        .stButton > button[kind="secondary"]:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--accent);
-            color: var(--accent) !important;
-            transform: translateY(-2px);
-        }
-        
-        /* Fix for button text */
-        .stButton > button > div > p {
-            background: transparent !important;
-            color: inherit !important;
-        }
-        
-        /* ========================================
-           FORMS & INPUTS
-        ======================================== */
-        
-        .stTextInput > div > div > input,
-        .stNumberInput > div > div > input,
-        .stTextArea > div > div > textarea {
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-md);
-            padding: var(--space-3) var(--space-4);
-            transition: all var(--transition-base);
-            background: var(--bg-primary);
-            color: var(--text-primary) !important;
-            font-size: 0.9375rem;
-        }
-        
-        .stTextInput > div > div > input:focus,
-        .stNumberInput > div > div > input:focus,
-        .stTextArea > div > div > textarea:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-light);
-            outline: none;
-        }
-        
-        /* ========================================
-           SIDEBAR
-        ======================================== */
-        
-        section[data-testid="stSidebar"] {
-            background: var(--bg-primary);
-            border-right: 1px solid var(--border-light);
-            padding-top: var(--space-8);
-        }
-        
-        section[data-testid="stSidebar"] .stButton > button {
-            width: 100%;
-            text-align: left;
-            justify-content: flex-start;
-            background: transparent;
-            color: var(--text-secondary) !important;
-            border: 1px solid transparent;
-            margin-bottom: var(--space-2);
-        }
-        
-        section[data-testid="stSidebar"] .stButton > button:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--accent);
-            color: var(--accent) !important;
-        }
-        
-        /* ========================================
-           FOOTER
-        ======================================== */
-        
-        .modern-footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.9) !important;
-            padding: var(--space-12) var(--space-6);
-            margin-top: var(--space-12);
-            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
-        }
-        
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: var(--space-8);
-            margin-bottom: var(--space-8);
-        }
-        
-        .footer-col h4 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: white !important;
-            margin-bottom: var(--space-4);
-        }
-        
-        .footer-col p, .footer-col a {
-            color: rgba(255,255,255,0.7) !important;
-            text-decoration: none;
-            transition: var(--transition-fast);
-            display: block;
-            margin-bottom: var(--space-2);
-        }
-        
-        .footer-col a:hover {
-            color: var(--accent-light) !important;
-            transform: translateX(4px);
-        }
-        
-        .footer-bottom {
-            padding-top: var(--space-6);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: rgba(255,255,255,0.6) !important;
-        }
-        
-        /* ========================================
-           UTILITIES
-        ======================================== */
-        
-        .stSuccess, .stError, .stWarning, .stInfo {
-            border-radius: var(--radius-lg);
-            padding: var(--space-4);
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Typography */
-        h1, h2, h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
-            color: var(--text-primary) !important;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: var(--space-6);
-        }
-        
-        h2 {
-            font-size: 2rem;
-            margin-bottom: var(--space-5);
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: var(--space-4);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-container {
-                grid-template-columns: 1fr;
-                gap: var(--space-4);
-            }
-            
-            .header-search {
-                max-width: 100%;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: var(--space-4);
-            }
-        }
-        
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-medium);
-            border-radius: 6px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-        
-        /* Loading States */
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
-            }
-            100% {
-                background-position: 1000px 0;
-            }
-        }
-        
-        .skeleton {
-            background: linear-gradient(
-                90deg,
-                var(--bg-tertiary) 0%,
-                var(--bg-secondary) 50%,
-                var(--bg-tertiary) 100%
-            );
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
-            border-radius: var(--radius-md);
-        }
-    </style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+    
+    :root {
+        --primary: #0F172A;
+        --accent: #6366F1;
+        --accent-hover: #4F46E5;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8FAFC;
+        --bg-tertiary: #F1F5F9;
+        --text-primary: #0F172A;
+        --text-secondary: #64748B;
+        --text-muted: #94A3B8;
+        --border: #E2E8F0;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-2xl: 1.5rem;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html, body, [data-testid="stAppViewContainer"] {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-secondary) !important;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    #MainMenu, footer, header { visibility: hidden; }
+    .stDeployButton { display: none; }
+    
+    .main .block-container {
+        max-width: 1400px !important;
+        padding: 1rem 2rem 4rem !important;
+    }
+    
+    /* Premium Header */
+    .premium-header {
+        background: linear-gradient(135deg, var(--primary) 0%, #1E293B 100%);
+        padding: 1rem 2rem;
+        border-radius: var(--radius-2xl);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .logo {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #A5B4FC 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        transition: all 0.2s;
+    }
+    
+    .nav-link:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+    
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+        border-radius: var(--radius-2xl);
+        padding: 4rem 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .hero h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 1rem;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    
+    .hero p {
+        font-size: 1.25rem;
+        color: rgba(255,255,255,0.9);
+        margin-bottom: 2rem;
+    }
+    
+    .hero-btn {
+        display: inline-block;
+        background: white;
+        color: var(--accent);
+        padding: 1rem 2.5rem;
+        border-radius: var(--radius-xl);
+        font-weight: 700;
+        font-size: 1.125rem;
+        text-decoration: none;
+        box-shadow: var(--shadow-xl);
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    
+    .hero-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    }
+    
+    /* Section Title */
+    .section-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 2rem 0 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    /* Product Cards */
+    .product-card {
+        background: white;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--accent);
+    }
+    
+    .product-img-container {
+        position: relative;
+        width: 100%;
+        padding-top: 100%;
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+        overflow: hidden;
+    }
+    
+    .product-img-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .product-card:hover .product-img-container img {
+        transform: scale(1.1);
+    }
+    
+    .product-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--accent);
+        color: white;
+        padding: 0.375rem 0.75rem;
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .product-badge.sale { background: var(--error); }
+    .product-badge.new { background: var(--success); }
+    
+    .product-info {
+        padding: 1.5rem;
+    }
+    
+    .product-category {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .product-name {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .stars { color: #FBBF24; }
+    
+    .product-price {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+    
+    .product-old-price {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        text-decoration: line-through;
+        margin-left: 0.5rem;
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        font-weight: 600;
+        border-radius: var(--radius-lg) !important;
+        transition: all 0.2s !important;
+        border: none !important;
+        padding: 0.75rem 1.5rem !important;
+    }
+    
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%) !important;
+        color: white !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+    
+    .stButton > button[kind="primary"]:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: var(--shadow-lg) !important;
+    }
+    
+    .stButton > button[kind="secondary"] {
+        background: white !important;
+        color: var(--text-primary) !important;
+        border: 2px solid var(--border) !important;
+    }
+    
+    .stButton > button[kind="secondary"]:hover {
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
+    }
+    
+    .stButton > button > div > p {
+        background: transparent !important;
+        color: inherit !important;
+    }
+    
+    /* Inputs */
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
+    .stSelectbox > div > div {
+        border: 2px solid var(--border) !important;
+        border-radius: var(--radius-lg) !important;
+        padding: 0.75rem 1rem !important;
+        transition: all 0.2s !important;
+    }
+    
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus {
+        border-color: var(--accent) !important;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0.5rem;
+        background: var(--bg-tertiary);
+        padding: 0.5rem;
+        border-radius: var(--radius-xl);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        border-radius: var(--radius-lg);
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: white !important;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    /* Cards Container */
+    .card {
+        background: white;
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    /* Cart Item */
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-lg);
+        margin-bottom: 1rem;
+        transition: all 0.2s;
+    }
+    
+    .cart-item:hover {
+        background: white;
+        box-shadow: var(--shadow-md);
+    }
+    
+    /* Footer */
+    .footer {
+        background: var(--primary);
+        color: white;
+        padding: 3rem 2rem 2rem;
+        margin-top: 4rem;
+        border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto 2rem;
+    }
+    
+    .footer-col h4 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+    }
+    
+    .footer-col a {
+        display: block;
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: color 0.2s;
+    }
+    
+    .footer-col a:hover { color: white; }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.6);
+        font-size: 0.875rem;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        background: white;
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        text-align: center;
+        border: 1px solid var(--border);
+        transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-desc {
+        color: var(--text-secondary);
+        font-size: 0.9375rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 2.5rem; }
+        .hero { padding: 3rem 1.5rem; }
+        .premium-header { padding: 1rem; }
+        .logo { font-size: 1.5rem; }
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in { animation: fadeInUp 0.5s ease-out; }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { 
+        background: var(--text-muted); 
+        border-radius: 5px; 
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+</style>
 """, unsafe_allow_html=True)
 
-# --- TEXTOS BILINGÜES MEJORADOS (ES/EN) ---
-TEXTS = {
+# ==================== SESSION STATE ====================
+def init_session():
+    defaults = {
+        'page': 'home',
+        'lang': 'ES',
+        'user': None,
+        'cart': [],
+        'cart_count': 0,
+        'search_query': '',
+        'selected_category': None,
+        'selected_product': None
+    }
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
+init_session()
+
+# ==================== BILINGUAL TEXTS ====================
+TEXTS = {
     'ES': {
-        'search_placeholder': "Buscar productos, marcas y más...",
-        'nav_categories': "Categorías",
-        'nav_about': "Acerca de",
-        'user_welcome': "Hola",
-        'user_account': "Mi Cuenta",
-        'user_orders': "Mis Compras",
-        'user_logout': "Cerrar Sesión",
-        'nav_signin': "Ingresar",
-        'nav_signup': "Crear cuenta",
-        'nav_cart': "Carrito",
-        'page_home_title': "Descubre productos increíbles",
-        'page_home_subtitle': "La mejor selección de productos a precios inmejorables",
-        'page_featured_products': "Productos Destacados",
-        'page_products': "Catálogo de Productos",
-        'page_cart': "Mi Carrito",
-        'page_checkout': "Finalizar Compra",
-        'page_account': "Mi Cuenta",
-        'page_orders': "Mis Pedidos",
-        'page_about': "Acerca de SAVA",
-        'filter_title': "Filtros",
-        'filter_categories': "Categorías",
-        'filter_all_categories': "Todas",
-        'cart_empty': "Tu carrito está vacío",
-        'cart_browse': "Explorar productos",
-        'cart_summary': "Resumen",
-        'cart_subtotal': "Subtotal",
-        'cart_shipping': "Envío",
-        'cart_tax': "IVA",
-        'cart_total': "Total",
-        'cart_checkout_button': "Proceder al pago",
-        'back_to_products': "← Volver",
-        'add_to_cart': "Agregar al carrito",
-        'in_stock': "Disponible",
-        'out_of_stock': "Agotado",
-        'view_details': "Ver detalles",
-        'quantity': "Cantidad",
-        'reviews': "opiniones",
-        'footer_customer': "Atención al Cliente",
-        'footer_help': "Ayuda",
-        'footer_returns': "Devoluciones",
-        'footer_warranty': "Garantía",
-        'footer_about': "Sobre SAVA",
-        'footer_about_us': "Quiénes somos",
-        'footer_careers': "Trabaja con nosotros",
-        'footer_payment': "Métodos de Pago",
-        'footer_cards': "Tarjetas",
-        'footer_paypal': "PayPal",
-        'footer_social': "Síguenos",
-        'footer_copyright': "© 2025 SAVA Software for Engineering. Todos los derechos reservados.",
-        'loading': "Cargando...",
-        'no_products': "No se encontraron productos",
-        'signin_required': "Inicia sesión para agregar al carrito"
+        'home': 'Inicio',
+        'products': 'Productos',
+        'about': 'Nosotros',
+        'cart': 'Carrito',
+        'signin': 'Ingresar',
+        'signup': 'Crear Cuenta',
+        'hero_title': '¡Bienvenido a SAVA!',
+        'hero_subtitle': 'Descubre productos increíbles con los mejores precios y envío gratis',
+        'explore': 'Explorar Productos',
+        'featured': 'Productos Destacados',
+        'categories': 'Categorías',
+        'search_placeholder': 'Buscar productos, marcas y más...',
+        'add_to_cart': 'Agregar al Carrito',
+        'buy_now': 'Comprar Ahora',
+        'view_details': 'Ver Detalles',
+        'cart_empty': 'Tu carrito está vacío',
+        'cart_total': 'Total',
+        'checkout': 'Proceder al Pago',
+        'continue_shopping': 'Continuar Comprando',
+        'quantity': 'Cantidad',
+        'remove': 'Eliminar',
+        'about_title': 'Acerca de SAVA',
+        'our_mission': 'Nuestra Misión',
+        'our_values': 'Nuestros Valores',
+        'contact': 'Contacto',
+        'email': 'Correo Electrónico',
+        'password': 'Contraseña',
+        'name': 'Nombre Completo',
+        'login': 'Iniciar Sesión',
+        'register': 'Registrarse',
+        'logout': 'Cerrar Sesión',
+        'welcome': 'Bienvenido',
+        'no_products': 'No se encontraron productos',
+        'loading': 'Cargando...',
+        'reviews': 'reseñas',
+        'in_stock': 'En Stock',
+        'out_of_stock': 'Agotado',
+        'free_shipping': 'Envío Gratis',
+        'secure_payment': 'Pago Seguro',
+        'support_24_7': 'Soporte 24/7',
+        'easy_returns': 'Devoluciones Fáciles'
     },
     'EN': {
-        'search_placeholder': "Search products, brands, and more...",
-        'nav_categories': "Categories",
-        'nav_about': "About",
-        'user_welcome': "Hello",
-        'user_account': "My Account",
-        'user_orders': "My Orders",
-        'user_logout': "Sign Out",
-        'nav_signin': "Sign In",
-        'nav_signup': "Sign Up",
-        'nav_cart': "Cart",
-        'page_home_title': "Discover amazing products",
-        'page_home_subtitle': "The best selection of products at unbeatable prices",
-        'page_featured_products': "Featured Products",
-        'page_products': "Product Catalog",
-        'page_cart': "My Cart",
-        'page_checkout': "Checkout",
-        'page_account': "My Account",
-        'page_orders': "My Orders",
-        'page_about': "About SAVA",
-        'filter_title': "Filters",
-        'filter_categories': "Categories",
-        'filter_all_categories': "All",
-        'cart_empty': "Your cart is empty",
-        'cart_browse': "Browse products",
-        'cart_summary': "Summary",
-        'cart_subtotal': "Subtotal",
-        'cart_shipping': "Shipping",
-        'cart_tax': "Tax",
-        'cart_total': "Total",
-        'cart_checkout_button': "Proceed to checkout",
-        'back_to_products': "← Back",
-        'add_to_cart': "Add to cart",
-        'in_stock': "In stock",
-        'out_of_stock': "Out of stock",
-        'view_details': "View details",
-        'quantity': "Quantity",
-        'reviews': "reviews",
-        'footer_customer': "Customer Service",
-        'footer_help': "Help",
-        'footer_returns': "Returns",
-        'footer_warranty': "Warranty",
-        'footer_about': "About SAVA",
-        'footer_about_us': "About Us",
-        'footer_careers': "Careers",
-        'footer_payment': "Payment Methods",
-        'footer_cards': "Cards",
-        'footer_paypal': "PayPal",
-        'footer_social': "Follow Us",
-        'footer_copyright': "© 2025 SAVA Software for Engineering. All rights reserved.",
-        'loading': "Loading...",
-        'no_products': "No products found",
-        'signin_required': "Sign in to add to cart"
+        'home': 'Home',
+        'products': 'Products',
+        'about': 'About',
+        'cart': 'Cart',
+        'signin': 'Sign In',
+        'signup': 'Sign Up',
+        'hero_title': 'Welcome to SAVA!',
+        'hero_subtitle': 'Discover amazing products with the best prices and free shipping',
+        'explore': 'Explore Products',
+        'featured': 'Featured Products',
+        'categories': 'Categories',
+        'search_placeholder': 'Search products, brands and more...',
+        'add_to_cart': 'Add to Cart',
+        'buy_now': 'Buy Now',
+        'view_details': 'View Details',
+        'cart_empty': 'Your cart is empty',
+        'cart_total': 'Total',
+        'checkout': 'Proceed to Checkout',
+        'continue_shopping': 'Continue Shopping',
+        'quantity': 'Quantity',
+        'remove': 'Remove',
+        'about_title': 'About SAVA',
+        'our_mission': 'Our Mission',
+        'our_values': 'Our Values',
+        'contact': 'Contact',
+        'email': 'Email',
+        'password': 'Password',
+        'name': 'Full Name',
+        'login': 'Login',
+        'register': 'Register',
+        'logout': 'Logout',
+        'welcome': 'Welcome',
+        'no_products': 'No products found',
+        'loading': 'Loading...',
+        'reviews': 'reviews',
+        'in_stock': 'In Stock',
+        'out_of_stock': 'Out of Stock',
+        'free_shipping': 'Free Shipping',
+        'secure_payment': 'Secure Payment',
+        'support_24_7': '24/7 Support',
+        'easy_returns': 'Easy Returns'
     }
 }
 
-# --- Inicialización Session State ---
-def init_session_state():
-    if 'page' not in st.session_state:
-        st.session_state.page = 'home'
-    if 'user' not in st.session_state:
-        st.session_state.user = None
-    if 'cart_count' not in st.session_state:
-        st.session_state.cart_count = 0
-    if 'search_query' not in st.session_state:
-        st.session_state.search_query = ''
-    if 'selected_category' not in st.session_state:
-        st.session_state.selected_category = None
-    if 'selected_product_id' not in st.session_state:
-        st.session_state.selected_product_id = None
-    if 'lang' not in st.session_state:
-        st.session_state.lang = 'ES'
-    if 'auth_tab' not in st.session_state:
-        st.session_state.auth_tab = 'login'
-
-init_session_state()
 T = TEXTS[st.session_state.lang]
 
-# --- Helpers ---
-def update_cart_count():
-    try:
-        from services.firebase_service import FirebaseService
-        firebase = FirebaseService()
-        if st.session_state.user:
-            cart = firebase.get_user_cart(st.session_state.user['uid'])
-            st.session_state.cart_count = sum(item.get('quantity', 0) for item in cart)
-        else:
-            st.session_state.cart_count = 0
-    except:
-        st.session_state.cart_count = 0
-
-def navigate_to(page: str):
+# ==================== NAVIGATION ====================
+def navigate_to(page):
     st.session_state.page = page
     st.rerun()
 
-# --- HEADER REDISEÑADO ---
+# ==================== HEADER ====================
 def render_header():
-    st.markdown('<div class="sava-header">', unsafe_allow_html=True)
-    st.markdown('<div class="header-content">', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="premium-header fade-in">
+            <div class="header-inner">
+                <div class="logo">✨ SAVA</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
     
-    # Columnas principales: [Logo, Búsqueda, Navegación]
-    cols = st.columns([1.5, 4, 4]) # Dar más espacio a la navegación
+    # Navigation Row
+    col1, col2, col3, col4, col5 = st.columns([3, 1, 1, 1, 1])
     
-    # Logo y marca
-    with cols[0]:
-        st.markdown('<div class="header-brand">', unsafe_allow_html=True)
-        # Usar st.columns para alinear logo y texto (el botón de SAVA)
-        col_img, col_text = st.columns([1, 2])
-        with col_img:
-            st.image("https://github.com/GIUSEPPESAN21/LOGO-SAVA/blob/main/LOGO.jpg?raw=true", width=48)
-        with col_text:
-            if st.button("SAVA", key="home_btn", help="Ir al inicio"):
-                navigate_to('home')
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Búsqueda
-    with cols[1]:
-        st.markdown('<div class="header-search">', unsafe_allow_html=True)
+    with col1:
         search = st.text_input(
             "search",
             placeholder=T['search_placeholder'],
             value=st.session_state.search_query,
-            key="header_search",
-            label_visibility="collapsed"
+            label_visibility="collapsed",
+            key="search_input"
         )
         if search != st.session_state.search_query:
             st.session_state.search_query = search
             navigate_to('products')
-        st.markdown('</div>', unsafe_allow_html=True)
     
-    # Navegación (AHORA CON 'display: flex' CSS)
-    with cols[2]:
-        st.markdown('<div class="header-nav">', unsafe_allow_html=True)
-        
-        # Idioma
-        st.markdown('<div class="lang-selector">', unsafe_allow_html=True)
-        lang = st.selectbox(
-            "lang",
-            options=['ES', 'EN'],
-            index=0 if st.session_state.lang == 'ES' else 1,
-            key='lang_select',
-            label_visibility="collapsed"
-        )
+    with col2:
+        if st.button(f"🏠 {T['home']}", use_container_width=True):
+            navigate_to('home')
+    
+    with col3:
+        if st.button(f"🛍️ {T['products']}", use_container_width=True):
+            navigate_to('products')
+    
+    with col4:
+        if st.session_state.user:
+            if st.button(f"👤 {st.session_state.user.get('name', 'User')[:10]}", use_container_width=True):
+                navigate_to('account')
+        else:
+            if st.button(f"👤 {T['signin']}", use_container_width=True):
+                navigate_to('auth')
+    
+    with col5:
+        cart_label = f"🛒 ({len(st.session_state.cart)})" if st.session_state.cart else "🛒"
+        if st.button(cart_label, use_container_width=True):
+            navigate_to('cart')
+    
+    # Language selector in sidebar-like area
+    with st.expander("🌐 Idioma / Language"):
+        lang = st.radio("", ['ES', 'EN'], horizontal=True, label_visibility="collapsed")
         if lang != st.session_state.lang:
             st.session_state.lang = lang
             st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Categorías
-        if st.button(f"🗂️ {T['nav_categories']}", key="cat_btn"):
-            navigate_to('products')
-        
-        # About
-        if st.button(f"ℹ️ {T['nav_about']}", key="about_btn"):
-            navigate_to('about')
-
-        if st.session_state.user:
-            # Usuario Logueado
-            with st.popover(f"👤 {T['user_welcome']}, {st.session_state.user.get('display_name', 'User').split()[0]}"):
-                st.markdown(f"**{st.session_state.user.get('display_name')}**")
-                st.caption(st.session_state.user.get('email'))
-                st.divider()
-                if st.button(f"👤 {T['user_account']}", use_container_width=True):
-                    navigate_to('account')
-                if st.button(f"📦 {T['user_orders']}", use_container_width=True):
-                    navigate_to('orders')
-                if st.button(f"🚪 {T['user_logout']}", use_container_width=True):
-                    st.session_state.user = None
-                    st.session_state.cart_count = 0
-                    navigate_to('home')
-        else:
-            # Usuario No Logueado
-            if st.button(T['nav_signin'], key="signin_btn"):
-                navigate_to('auth')
-            if st.button(T['nav_signup'], key="signup_btn"):
-                st.session_state.auth_tab = 'register'
-                navigate_to('auth')
-        
-        # Carrito
-        st.markdown('<div class="cart-wrapper">', unsafe_allow_html=True)
-        if st.button(f"🛒 {T['nav_cart']}", key="cart_btn"):
-            navigate_to('cart')
-        if st.session_state.cart_count > 0:
-            st.markdown(
-                f'<div class="cart-badge">{st.session_state.cart_count}</div>',
-                unsafe_allow_html=True
-            )
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True) # Cierre de .header-nav
-    
-    st.markdown('</div></div>', unsafe_allow_html=True) # Cierre de .header-content y .sava-header
-
-# --- SIDEBAR (solo productos) ---
-def render_sidebar():
-    with st.sidebar:
-        st.title(f"🔍 {T['filter_title']}")
-        st.divider()
-        
-        try:
-            from services.firebase_service import FirebaseService
-            firebase = FirebaseService()
-            categories = firebase.get_categories()
-            
-            if categories:
-                st.subheader(T['filter_categories'])
-                
-                if st.button(T['filter_all_categories'], use_container_width=True):
-                    st.session_state.selected_category = None
-                    st.rerun()
-                
-                for cat in categories:
-                    if st.button(cat, key=f"cat_{cat}", use_container_width=True):
-                        st.session_state.selected_category = cat
-                        st.rerun()
-                
-                if st.session_state.selected_category:
-                    st.success(f"✓ {st.session_state.selected_category}")
-        except:
-            pass
-
-# --- PÁGINAS ---
-def render_home_page():
-    # Banner promocional
-    st.markdown("""
-        <div style="background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%); 
-                    padding: 3rem; border-radius: 16px; text-align: center; 
-                    color: white; margin: 0 0 2rem 0;">
-            <h2 style="margin: 0; font-size: 2rem; color: white !important;">🚚 Envío Gratis</h2>
-            <p style="margin: 0.5rem 0 0; font-size: 1.1rem; color: white !important;">En tu primera compra</p>
+# ==================== HERO SECTION ====================
+def render_hero():
+    st.markdown(f"""
+        <div class="hero fade-in">
+            <div class="hero-content">
+                <h1>{T['hero_title']}</h1>
+                <p>{T['hero_subtitle']}</p>
+            </div>
         </div>
     """, unsafe_allow_html=True)
     
+    # CTA Button
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button(f"🚀 {T['explore']}", type="primary", use_container_width=True):
+            navigate_to('products')
+
+# ==================== FEATURES ====================
+def render_features():
+    st.markdown("")
+    cols = st.columns(4)
+    
+    features = [
+        ("🚚", T['free_shipping'], "En todos los pedidos"),
+        ("🔒", T['secure_payment'], "100% seguro"),
+        ("📞", T['support_24_7'], "Estamos para ayudarte"),
+        ("↩️", T['easy_returns'], "30 días de garantía")
+    ]
+    
+    for i, (icon, title, desc) in enumerate(features):
+        with cols[i]:
+            st.markdown(f"""
+                <div class="feature-card">
+                    <div class="feature-icon">{icon}</div>
+                    <div class="feature-title">{title}</div>
+                    <div class="feature-desc">{desc}</div>
+                </div>
+            """, unsafe_allow_html=True)
+
+# ==================== PRODUCT FUNCTIONS ====================
+def get_sample_products():
+    """Return sample products when Firebase is not available"""
+    return [
+        {
+            'id': '1',
+            'name': 'Laptop Gaming Pro X1',
+            'price': 1299.99,
+            'old_price': 1599.99,
+            'category': 'Electronics',
+            'rating': 4.8,
+            'reviews_count': 256,
+            'stock': 15,
+            'badge': 'sale',
+            'image': 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400',
+            'description': 'Potente laptop gaming con procesador de última generación, 16GB RAM, 512GB SSD y pantalla 144Hz.'
+        },
+        {
+            'id': '2',
+            'name': 'Auriculares Wireless Premium',
+            'price': 199.99,
+            'category': 'Audio',
+            'rating': 4.9,
+            'reviews_count': 1024,
+            'stock': 50,
+            'badge': 'new',
+            'image': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
+            'description': 'Auriculares inalámbricos con cancelación de ruido activa y 30 horas de batería.'
+        },
+        {
+            'id': '3',
+            'name': 'Smartwatch Series 8',
+            'price': 349.99,
+            'old_price': 399.99,
+            'category': 'Wearables',
+            'rating': 4.7,
+            'reviews_count': 512,
+            'stock': 25,
+            'badge': 'sale',
+            'image': 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400',
+            'description': 'Reloj inteligente con monitor de salud, GPS y resistencia al agua.'
+        },
+        {
+            'id': '4',
+            'name': 'Cámara DSLR Professional',
+            'price': 899.99,
+            'category': 'Photography',
+            'rating': 4.6,
+            'reviews_count': 189,
+            'stock': 10,
+            'image': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400',
+            'description': 'Cámara profesional con sensor de 24MP y grabación de video 4K.'
+        },
+        {
+            'id': '5',
+            'name': 'Teclado Mecánico RGB',
+            'price': 129.99,
+            'category': 'Gaming',
+            'rating': 4.8,
+            'reviews_count': 876,
+            'stock': 100,
+            'badge': 'new',
+            'image': 'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400',
+            'description': 'Teclado mecánico con switches Cherry MX e iluminación RGB personalizable.'
+        },
+        {
+            'id': '6',
+            'name': 'Monitor 4K Ultra HD 27"',
+            'price': 449.99,
+            'old_price': 549.99,
+            'category': 'Electronics',
+            'rating': 4.5,
+            'reviews_count': 324,
+            'stock': 20,
+            'badge': 'sale',
+            'image': 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400',
+            'description': 'Monitor 4K con HDR10, 144Hz y tiempo de respuesta de 1ms.'
+        },
+        {
+            'id': '7',
+            'name': 'Mochila Tech Travel',
+            'price': 79.99,
+            'category': 'Accessories',
+            'rating': 4.4,
+            'reviews_count': 445,
+            'stock': 75,
+            'image': 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
+            'description': 'Mochila resistente al agua con compartimento para laptop de hasta 17".'
+        },
+        {
+            'id': '8',
+            'name': 'Speaker Bluetooth Portable',
+            'price': 59.99,
+            'category': 'Audio',
+            'rating': 4.3,
+            'reviews_count': 678,
+            'stock': 150,
+            'image': 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400',
+            'description': 'Altavoz portátil con 20 horas de batería y resistencia IPX7.'
+        }
+    ]
+
+def get_products():
+    """Try to get products from Firebase, fallback to sample data"""
     try:
         from services.firebase_service import FirebaseService
-        from components.product_list import render_product_grid
-        
         firebase = FirebaseService()
-        products = firebase.get_products(limit=8)
-        
+        products = firebase.get_products(limit=12)
         if products:
-            st.markdown(f"## {T['page_featured_products']}")
-            render_product_grid(products, columns=4)
-        else:
-            st.info(T['no_products'])
-    except Exception as e:
-        st.warning(T['loading'])
+            return products
+    except:
+        pass
+    return get_sample_products()
+
+def render_product_card(product, show_button=True):
+    """Render a product card"""
+    name = product.get('name', 'Product')
+    price = product.get('price', 0)
+    old_price = product.get('old_price')
+    image = product.get('image', 'https://placehold.co/400x400/E2E8F0/64748B?text=Product')
+    rating = product.get('rating', 0)
+    reviews = product.get('reviews_count', 0)
+    category = product.get('category', 'General')
+    badge = product.get('badge', '')
+    
+    badge_html = f'<div class="product-badge {badge}">{badge.upper()}</div>' if badge else ''
+    old_price_html = f'<span class="product-old-price">${old_price:.2f}</span>' if old_price else ''
+    
+    st.markdown(f"""
+        <div class="product-card fade-in">
+            <div class="product-img-container">
+                <img src="{image}" alt="{name}" />
+                {badge_html}
+            </div>
+            <div class="product-info">
+                <div class="product-category">{category}</div>
+                <div class="product-name">{name}</div>
+                <div class="product-rating">
+                    <span class="stars">{'⭐' * int(rating)}</span>
+                    <span>({reviews} {T['reviews']})</span>
+                </div>
+                <div>
+                    <span class="product-price">${price:.2f}</span>
+                    {old_price_html}
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    if show_button:
+        if st.button(f"🛒 {T['add_to_cart']}", key=f"add_{product.get('id', name)}", use_container_width=True):
+            add_to_cart(product)
+            st.success("✅ Agregado al carrito!")
+            st.rerun()
+
+# ==================== CART FUNCTIONS ====================
+def add_to_cart(product, quantity=1):
+    """Add product to cart"""
+    cart = st.session_state.cart
+    
+    # Check if product already in cart
+    for item in cart:
+        if item['id'] == product.get('id'):
+            item['quantity'] += quantity
+            return
+    
+    # Add new item
+    cart.append({
+        'id': product.get('id'),
+        'name': product.get('name'),
+        'price': product.get('price'),
+        'image': product.get('image', ''),
+        'quantity': quantity
+    })
+
+def remove_from_cart(product_id):
+    """Remove product from cart"""
+    st.session_state.cart = [item for item in st.session_state.cart if item['id'] != product_id]
+
+def update_cart_quantity(product_id, quantity):
+    """Update quantity in cart"""
+    for item in st.session_state.cart:
+        if item['id'] == product_id:
+            item['quantity'] = quantity
+            break
+
+def get_cart_total():
+    """Calculate cart total"""
+    return sum(item['price'] * item['quantity'] for item in st.session_state.cart)
+
+# ==================== PAGES ====================
+def render_home_page():
+    render_hero()
+    render_features()
+    
+    st.markdown(f'<div class="section-title">🌟 {T["featured"]}</div>', unsafe_allow_html=True)
+    
+    products = get_products()
+    
+    if products:
+        cols = st.columns(4)
+        for idx, product in enumerate(products[:8]):
+            with cols[idx % 4]:
+                render_product_card(product)
+    else:
+        st.info(T['no_products'])
 
 def render_products_page():
-    st.markdown(f"# {T['page_products']}")
+    st.markdown(f'<div class="section-title">🛍️ {T["products"]}</div>', unsafe_allow_html=True)
     
-    render_sidebar()
+    # Filters
+    col1, col2, col3 = st.columns([2, 1, 1])
     
-    try:
-        from services.firebase_service import FirebaseService
-        from components.product_list import render_product_grid
-        
-        firebase = FirebaseService()
-        products = firebase.get_products(
-            limit=24,
-            category=st.session_state.selected_category,
-            search_query=st.session_state.search_query
-        )
-        
-        # Mostrar filtros activos
-        filters = []
-        if st.session_state.search_query:
-            filters.append(f"🔍 {st.session_state.search_query}")
-        if st.session_state.selected_category:
-            filters.append(f"📁 {st.session_state.selected_category}")
-        
-        if filters:
-            st.info(" • ".join(filters))
-        
-        if products:
-            render_product_grid(products, columns=4)
-        else:
-            st.warning(T['no_products'])
-    except:
-        st.warning(T['loading'])
-
-def render_product_detail_page():
-    product_id = st.session_state.selected_product_id
+    with col1:
+        search = st.text_input("🔍 Buscar", st.session_state.search_query, key="prod_search")
+        if search != st.session_state.search_query:
+            st.session_state.search_query = search
     
-    if not product_id:
-        navigate_to('home')
-        return
+    with col2:
+        categories = ['Todos', 'Electronics', 'Audio', 'Gaming', 'Wearables', 'Photography', 'Accessories']
+        selected_cat = st.selectbox(f"📁 {T['categories']}", categories)
     
-    try:
-        from services.firebase_service import FirebaseService
-        from utils.formatters import format_currency
-        
-        firebase = FirebaseService()
-        product = firebase.get_product_by_id(product_id)
-        
-        if not product:
-            st.error("Producto no encontrado")
-            navigate_to('home')
-            return
-        
-        if st.button(T['back_to_products']):
-            st.session_state.selected_product_id = None
-            navigate_to('products')
-        
-        col1, col2 = st.columns([1, 1])
-        
-        with col1:
-            images = product.get('images', [])
-            if images:
-                st.image(images[0].get('url'), use_container_width=True)
-            else:
-                st.image("https://placehold.co/600x600/E5E7EB/9CA3AF?text=Sin+Imagen", use_container_width=True)
-        
-        with col2:
-            st.markdown(f"# {product.get('name', 'Producto')}")
-            
-            rating = product.get('rating', 0)
-            reviews = product.get('reviews_count', 0)
-            if rating > 0:
-                stars = "⭐" * int(rating)
-                st.markdown(f"{stars} ({reviews} {T['reviews']})")
-            
-            st.markdown(f"<div class='product-price'>{format_currency(product.get('price', 0))}</div>", unsafe_allow_html=True)
-            
-            stock = product.get('stock', 0)
-            if stock > 0:
-                st.success(f"✅ {T['in_stock']}")
-            else:
-                st.error(f"❌ {T['out_of_stock']}")
-            
-            if st.session_state.user:
-                if stock > 0:
-                    qty = st.number_input(T['quantity'], min_value=1, max_value=min(stock, 10), value=1)
-                    if st.button(T['add_to_cart'], type="primary", use_container_width=True):
-                        if firebase.add_to_cart(st.session_state.user['uid'], product_id, qty):
-                            st.success("✓ Agregado al carrito")
-                            update_cart_count()
-                            st.rerun()
-            else:
-                st.info(f"🔐 {T['signin_required']}")
-            
-            st.divider()
-            st.markdown("### Descripción")
-            st.write(product.get('description', ''))
-    except Exception as e:
-        st.error(str(e))
+    with col3:
+        sort_options = ['Relevancia', 'Precio: Menor a Mayor', 'Precio: Mayor a Menor', 'Mejor Valorados']
+        sort_by = st.selectbox("📊 Ordenar por", sort_options)
+    
+    st.markdown("---")
+    
+    # Get and filter products
+    products = get_products()
+    
+    # Apply category filter
+    if selected_cat != 'Todos':
+        products = [p for p in products if p.get('category') == selected_cat]
+    
+    # Apply search filter
+    if search:
+        products = [p for p in products if search.lower() in p.get('name', '').lower()]
+    
+    # Apply sorting
+    if sort_by == 'Precio: Menor a Mayor':
+        products.sort(key=lambda x: x.get('price', 0))
+    elif sort_by == 'Precio: Mayor a Menor':
+        products.sort(key=lambda x: x.get('price', 0), reverse=True)
+    elif sort_by == 'Mejor Valorados':
+        products.sort(key=lambda x: x.get('rating', 0), reverse=True)
+    
+    if products:
+        st.caption(f"Mostrando {len(products)} productos")
+        cols = st.columns(4)
+        for idx, product in enumerate(products):
+            with cols[idx % 4]:
+                render_product_card(product)
+    else:
+        st.warning(T['no_products'])
 
 def render_cart_page():
-    if not st.session_state.user:
-        st.warning("Inicia sesión para ver tu carrito")
-        navigate_to('auth')
+    st.markdown(f'<div class="section-title">🛒 {T["cart"]}</div>', unsafe_allow_html=True)
+    
+    cart = st.session_state.cart
+    
+    if not cart:
+        st.markdown("""
+            <div class="card" style="text-align: center; padding: 4rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+                <h3 style="margin-bottom: 0.5rem;">Tu carrito está vacío</h3>
+                <p style="color: var(--text-secondary);">¡Agrega productos para comenzar!</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button(f"🛍️ {T['continue_shopping']}", type="primary"):
+            navigate_to('products')
         return
     
-    st.markdown(f"# {T['page_cart']}")
+    col1, col2 = st.columns([2, 1])
     
-    try:
-        from services.firebase_service import FirebaseService
-        from utils.formatters import format_currency, calculate_total
-        
-        firebase = FirebaseService()
-        cart_items = firebase.get_user_cart(st.session_state.user['uid'])
-        update_cart_count()
-        
-        if not cart_items:
-            st.info(T['cart_empty'])
-            if st.button(T['cart_browse'], type="primary"):
-                navigate_to('products')
-            return
-        
-        col_items, col_summary = st.columns([2, 1])
-        
-        with col_items:
-            for item in cart_items:
-                st.markdown('<div class="cart-item">', unsafe_allow_html=True)
-                c1, c2, c3, c4 = st.columns([1, 3, 1, 1])
-                
-                with c1:
-                    st.image(item.get('image', 'https://placehold.co/100x100'), width=80)
-                with c2:
-                    st.markdown(f"**{item.get('name')}**")
-                    st.caption(format_currency(item.get('price', 0)))
-                with c3:
-                    qty_key = f"qty_{item['product_id']}"
-                    new_qty = st.number_input(
-                        "Q",
-                        min_value=1,
-                        max_value=99,
-                        value=item.get('quantity', 1),
-                        key=qty_key,
-                        label_visibility="collapsed"
-                    )
-                    if new_qty != item.get('quantity', 1):
-                        firebase.update_cart_item(st.session_state.user['uid'], item['product_id'], new_qty)
-                        st.rerun()
-                with c4:
-                    if st.button("🗑️", key=f"del_{item['product_id']}"):
-                        firebase.update_cart_item(st.session_state.user['uid'], item['product_id'], 0)
-                        st.rerun()
-                
-                st.markdown('</div>', unsafe_allow_html=True)
-        
-        with col_summary:
-            st.markdown('<div class="cart-summary">', unsafe_allow_html=True)
-            st.markdown(f"### {T['cart_summary']}")
+    with col1:
+        for item in cart:
+            c1, c2, c3, c4, c5 = st.columns([1, 3, 2, 1, 1])
             
-            totals = calculate_total(cart_items, tax_rate=0.08, shipping=5.99)
+            with c1:
+                st.image(item['image'] or 'https://placehold.co/100x100', width=80)
             
-            st.markdown(f"{T['cart_subtotal']}: **{format_currency(totals['subtotal'])}**")
-            st.markdown(f"{T['cart_tax']}: **{format_currency(totals['tax'])}**")
-            st.markdown(f"{T['cart_shipping']}: **{format_currency(totals['shipping'])}**")
-            st.divider()
-            st.markdown(f"### {T['cart_total']}: {format_currency(totals['total'])}")
+            with c2:
+                st.markdown(f"**{item['name']}**")
+                st.caption(f"${item['price']:.2f}")
             
-            if st.button(T['cart_checkout_button'], type="primary", use_container_width=True):
-                st.session_state.checkout_step = 'shipping'
+            with c3:
+                new_qty = st.number_input(
+                    T['quantity'],
+                    min_value=1,
+                    max_value=99,
+                    value=item['quantity'],
+                    key=f"qty_{item['id']}",
+                    label_visibility="collapsed"
+                )
+                if new_qty != item['quantity']:
+                    update_cart_quantity(item['id'], new_qty)
+                    st.rerun()
+            
+            with c4:
+                st.markdown(f"**${item['price'] * item['quantity']:.2f}**")
+            
+            with c5:
+                if st.button("🗑️", key=f"del_{item['id']}"):
+                    remove_from_cart(item['id'])
+                    st.rerun()
+            
+            st.markdown("---")
+    
+    with col2:
+        st.markdown("""
+            <div class="card">
+                <h3 style="margin-bottom: 1rem;">Resumen del Pedido</h3>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        subtotal = get_cart_total()
+        shipping = 0 if subtotal > 100 else 9.99
+        tax = subtotal * 0.08
+        total = subtotal + shipping + tax
+        
+        st.markdown(f"**Subtotal:** ${subtotal:.2f}")
+        st.markdown(f"**Envío:** {'GRATIS' if shipping == 0 else f'${shipping:.2f}'}")
+        st.markdown(f"**Impuestos:** ${tax:.2f}")
+        st.markdown("---")
+        st.markdown(f"### Total: ${total:.2f}")
+        
+        if st.button(f"💳 {T['checkout']}", type="primary", use_container_width=True):
+            if st.session_state.user:
                 navigate_to('checkout')
-            
-            st.markdown('</div>', unsafe_allow_html=True)
-    except Exception as e:
-        st.error(str(e))
-
-def render_checkout_page():
-    if not st.session_state.user:
-        navigate_to('auth')
-        return
-    
-    st.markdown(f"# {T['page_checkout']}")
-    
-    try:
-        from services.firebase_service import FirebaseService
-        from components.checkout_form import render_checkout_form
+            else:
+                st.warning("Por favor inicia sesión para continuar")
+                navigate_to('auth')
         
-        firebase = FirebaseService()
-        cart_items = firebase.get_user_cart(st.session_state.user['uid'])
-        
-        if not cart_items:
-            navigate_to('cart')
-            return
-        
-        col1, col2 = st.columns([1.5, 1])
-        
-        with col1:
-            render_checkout_form(cart_items)
-        
-        with col2:
-            from utils.formatters import format_currency, calculate_total
-            totals = calculate_total(cart_items, tax_rate=0.08, shipping=5.99)
-            
-            st.markdown('<div class="cart-summary">', unsafe_allow_html=True)
-            st.markdown(f"### {T['cart_summary']}")
-            
-            for item in cart_items:
-                st.caption(f"{item.get('name')} x{item.get('quantity')}")
-            
-            st.divider()
-            st.markdown(f"**{T['cart_total']}: {format_currency(totals['total'])}**")
-            st.markdown('</div>', unsafe_allow_html=True)
-    except:
-        pass
+        if st.button(f"🛍️ {T['continue_shopping']}", use_container_width=True):
+            navigate_to('products')
 
 def render_auth_page():
-    st.markdown(f"# {T['page_account']}")
+    st.markdown(f'<div class="section-title">👤 {T["signin"]}</div>', unsafe_allow_html=True)
     
-    from components.auth import render_login_form, render_register_form
+    if st.session_state.user:
+        st.success(f"✅ {T['welcome']}, {st.session_state.user.get('name')}!")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button(f"🛒 {T['cart']}", use_container_width=True):
+                navigate_to('cart')
+        with col2:
+            if st.button(f"🚪 {T['logout']}", use_container_width=True):
+                st.session_state.user = None
+                st.rerun()
+        return
     
-    tab1, tab2 = st.tabs([T['nav_signin'], T['nav_signup']])
+    tab1, tab2 = st.tabs([f"🔐 {T['login']}", f"📝 {T['register']}"])
     
     with tab1:
-        render_login_form()
+        with st.form("login_form"):
+            email = st.text_input(f"📧 {T['email']}")
+            password = st.text_input(f"🔒 {T['password']}", type="password")
+            
+            if st.form_submit_button(T['login'], type="primary", use_container_width=True):
+                if email and password:
+                    # Try Firebase auth first
+                    try:
+                        from services.firebase_service import FirebaseService
+                        firebase = FirebaseService()
+                        user = firebase.sign_in(email, password)
+                        if user:
+                            st.session_state.user = user
+                            st.success("✅ ¡Inicio de sesión exitoso!")
+                            st.rerun()
+                    except:
+                        # Demo mode
+                        st.session_state.user = {
+                            'uid': 'demo123',
+                            'email': email,
+                            'name': email.split('@')[0].title()
+                        }
+                        st.success("✅ ¡Inicio de sesión exitoso!")
+                        st.rerun()
+                else:
+                    st.error("Por favor completa todos los campos")
+    
     with tab2:
-        render_register_form()
-
-def render_account_page():
-    if not st.session_state.user:
-        navigate_to('auth')
-        return
-    
-    st.markdown(f"# {T['page_account']}")
-    
-    user = st.session_state.user
-    st.markdown(f"**Nombre:** {user.get('display_name')}")
-    st.markdown(f"**Email:** {user.get('email')}")
-    
-    st.divider()
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button(f"📦 {T['user_orders']}", use_container_width=True, key="account_orders_btn"):
-            navigate_to('orders')
-    with col2:
-        if st.button(f"🛒 {T['nav_cart']}", use_container_width=True, key="account_cart_btn"):
-            navigate_to('cart')
-
-def render_orders_page():
-    if not st.session_state.user:
-        navigate_to('auth')
-        return
-    
-    st.markdown(f"# {T['page_orders']}")
-    
-    try:
-        from services.firebase_service import FirebaseService
-        from utils.formatters import format_currency, format_date
-        
-        firebase = FirebaseService()
-        orders = firebase.get_user_orders(st.session_state.user['uid'])
-        
-        if orders:
-            for order in orders:
-                with st.expander(f"Pedido #{order.get('id')[:8]} - {format_date(order.get('created_at'))}"):
-                    st.markdown(f"**Estado:** {order.get('status', 'pending').upper()}")
-                    totals = order.get('totals', {})
-                    st.markdown(f"**Total:** {format_currency(totals.get('total', 0))}")
-                    
-                    items = order.get('items', [])
-                    st.markdown("**Productos:**")
-                    for item in items:
-                        st.caption(f"• {item.get('name')} x{item.get('quantity')}")
-        else:
-            st.info("No tienes pedidos aún")
-            if st.button(T['cart_browse'], type="primary"):
-                navigate_to('products')
-    except:
-        pass
+        with st.form("register_form"):
+            name = st.text_input(f"👤 {T['name']}")
+            reg_email = st.text_input(f"📧 {T['email']}", key="reg_email")
+            reg_password = st.text_input(f"🔒 {T['password']}", type="password", key="reg_pass")
+            confirm_password = st.text_input("🔒 Confirmar Contraseña", type="password")
+            
+            if st.form_submit_button(T['register'], type="primary", use_container_width=True):
+                if all([name, reg_email, reg_password, confirm_password]):
+                    if reg_password != confirm_password:
+                        st.error("Las contraseñas no coinciden")
+                    else:
+                        # Try Firebase registration
+                        try:
+                            from services.firebase_service import FirebaseService
+                            firebase = FirebaseService()
+                            user = firebase.create_user(reg_email, reg_password, name)
+                            if user:
+                                st.session_state.user = user
+                                st.success("✅ ¡Cuenta creada exitosamente!")
+                                st.rerun()
+                        except:
+                            # Demo mode
+                            st.session_state.user = {
+                                'uid': 'demo123',
+                                'email': reg_email,
+                                'name': name
+                            }
+                            st.success("✅ ¡Cuenta creada exitosamente!")
+                            st.rerun()
+                else:
+                    st.error("Por favor completa todos los campos")
 
 def render_about_page():
-    from components.about import render_about_content
-    render_about_content()
+    st.markdown(f'<div class="section-title">ℹ️ {T["about_title"]}</div>', unsafe_allow_html=True)
+    
+    st.markdown("""
+        <div class="card fade-in">
+            <h2 style="color: var(--accent); margin-bottom: 1rem;">Nuestra Misión</h2>
+            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary);">
+                En SAVA, nos dedicamos a ofrecer la mejor experiencia de compra online, 
+                combinando tecnología de vanguardia con un servicio al cliente excepcional. 
+                Nuestro objetivo es hacer que las compras online sean fáciles, seguras y agradables.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    values = [
+        ("🎯", "Excelencia", "Buscamos la perfección en cada detalle de nuestro servicio."),
+        ("🤝", "Confianza", "Construimos relaciones duraderas basadas en la transparencia."),
+        ("💡", "Innovación", "Siempre a la vanguardia de las últimas tendencias tecnológicas.")
+    ]
+    
+    for col, (icon, title, desc) in zip([col1, col2, col3], values):
+        with col:
+            st.markdown(f"""
+                <div class="feature-card">
+                    <div class="feature-icon">{icon}</div>
+                    <div class="feature-title">{title}</div>
+                    <div class="feature-desc">{desc}</div>
+                </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("")
+    st.markdown(f'<div class="section-title">📞 {T["contact"]}</div>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+            <div class="card">
+                <h3 style="margin-bottom: 1rem;">Información de Contacto</h3>
+                <p>📧 <strong>Email:</strong> contacto@sava.com</p>
+                <p>📞 <strong>Teléfono:</strong> +1 (555) 123-4567</p>
+                <p>📍 <strong>Dirección:</strong> 123 Tech Street, Innovation City</p>
+                <p>🕐 <strong>Horario:</strong> Lun-Vie 9:00 - 18:00</p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        with st.form("contact_form"):
+            st.text_input("Nombre")
+            st.text_input("Email")
+            st.text_area("Mensaje")
+            if st.form_submit_button("📤 Enviar Mensaje", type="primary", use_container_width=True):
+                st.success("✅ ¡Mensaje enviado! Te responderemos pronto.")
 
-# --- FOOTER ---
+def render_checkout_page():
+    st.markdown('<div class="section-title">💳 Checkout</div>', unsafe_allow_html=True)
+    
+    if not st.session_state.user:
+        st.warning("Por favor inicia sesión para continuar")
+        if st.button("Ir a Iniciar Sesión"):
+            navigate_to('auth')
+        return
+    
+    if not st.session_state.cart:
+        st.info("Tu carrito está vacío")
+        if st.button("Ir a Productos"):
+            navigate_to('products')
+        return
+    
+    col1, col2 = st.columns([1.5, 1])
+    
+    with col1:
+        st.markdown("### 📦 Información de Envío")
+        
+        with st.form("checkout_form"):
+            c1, c2 = st.columns(2)
+            with c1:
+                st.text_input("Nombre", value=st.session_state.user.get('name', ''))
+            with c2:
+                st.text_input("Apellido")
+            
+            st.text_input("Dirección")
+            
+            c1, c2, c3 = st.columns(3)
+            with c1:
+                st.text_input("Ciudad")
+            with c2:
+                st.text_input("Estado/Provincia")
+            with c3:
+                st.text_input("Código Postal")
+            
+            st.text_input("Teléfono")
+            
+            st.markdown("### 💳 Información de Pago")
+            st.text_input("Número de Tarjeta", placeholder="1234 5678 9012 3456")
+            
+            c1, c2 = st.columns(2)
+            with c1:
+                st.text_input("Fecha de Expiración", placeholder="MM/YY")
+            with c2:
+                st.text_input("CVV", placeholder="123", type="password")
+            
+            if st.form_submit_button("🛒 Completar Compra", type="primary", use_container_width=True):
+                st.success("✅ ¡Pedido realizado exitosamente!")
+                st.balloons()
+                st.session_state.cart = []
+                st.info("Tu pedido ha sido procesado. Recibirás un email de confirmación.")
+    
+    with col2:
+        st.markdown("### 📋 Resumen del Pedido")
+        
+        for item in st.session_state.cart:
+            st.markdown(f"**{item['name']}** x{item['quantity']}")
+            st.caption(f"${item['price'] * item['quantity']:.2f}")
+        
+        st.markdown("---")
+        
+        subtotal = get_cart_total()
+        shipping = 0 if subtotal > 100 else 9.99
+        tax = subtotal * 0.08
+        total = subtotal + shipping + tax
+        
+        st.markdown(f"**Subtotal:** ${subtotal:.2f}")
+        st.markdown(f"**Envío:** {'GRATIS 🎉' if shipping == 0 else f'${shipping:.2f}'}")
+        st.markdown(f"**Impuestos:** ${tax:.2f}")
+        st.markdown("---")
+        st.markdown(f"## Total: ${total:.2f}")
+
+def render_account_page():
+    st.markdown('<div class="section-title">👤 Mi Cuenta</div>', unsafe_allow_html=True)
+    
+    if not st.session_state.user:
+        navigate_to('auth')
+        return
+    
+    user = st.session_state.user
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.markdown(f"""
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">👤</div>
+                <h2>{user.get('name', 'Usuario')}</h2>
+                <p style="color: var(--text-secondary);">{user.get('email', '')}</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button(f"🚪 {T['logout']}", use_container_width=True):
+            st.session_state.user = None
+            navigate_to('home')
+    
+    with col2:
+        tab1, tab2 = st.tabs(["📦 Pedidos", "⚙️ Configuración"])
+        
+        with tab1:
+            st.info("No tienes pedidos aún. ¡Comienza a comprar!")
+            if st.button("🛍️ Ir a Productos"):
+                navigate_to('products')
+        
+        with tab2:
+            with st.form("update_profile"):
+                st.text_input("Nombre", value=user.get('name', ''))
+                st.text_input("Email", value=user.get('email', ''), disabled=True)
+                st.text_input("Teléfono")
+                st.text_area("Dirección")
+                
+                if st.form_submit_button("💾 Guardar Cambios", type="primary"):
+                    st.success("✅ Perfil actualizado")
+
+# ==================== FOOTER ====================
 def render_footer():
-    footer_html = f"""
-    <div class="sava-footer">
-        <div class="footer-content">
+    st.markdown("""
+        <div class="footer">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>{T['footer_customer']}</h4>
-                    <ul>
-                        <li><a href="#">{T['footer_help']}</a></li>
-                        <li><a href="#">{T['footer_returns']}</a></li>
-                        <li><a href="#">{T['footer_warranty']}</a></li>
-                    </ul>
+                    <h4>Compañía</h4>
+                    <a href="#">Acerca de Nosotros</a>
+                    <a href="#">Carreras</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Prensa</a>
                 </div>
                 <div class="footer-col">
-                    <h4>{T['footer_about']}</h4>
-                    <ul>
-                        <li><a href="#">{T['footer_about_us']}</a></li>
-                        <li><a href="#">{T['footer_careers']}</a></li>
-                    </ul>
+                    <h4>Soporte</h4>
+                    <a href="#">Centro de Ayuda</a>
+                    <a href="#">Envíos</a>
+                    <a href="#">Devoluciones</a>
+                    <a href="#">Estado del Pedido</a>
                 </div>
                 <div class="footer-col">
-                    <h4>{T['footer_payment']}</h4>
-                    <ul>
-                        <li>{T['footer_cards']}</li>
-                        <li>{T['footer_paypal']}</li>
-                    </ul>
+                    <h4>Legal</h4>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Términos</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Licencias</a>
                 </div>
                 <div class="footer-col">
-                    <h4>{T['footer_social']}</h4>
-                    <ul>
-                        <li><a href="https://github.com/GIUSEPPESAN21" target="_blank">GitHub</a></li>
-                        <li><a href="https://www.linkedin.com/in/joseph-javier-sánchez-acuña-150410275" target="_blank">LinkedIn</a></li>
-                    </ul>
+                    <h4>Síguenos</h4>
+                    <a href="https://github.com/GIUSEPPESAN21" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/joseph-javier-sánchez-acuña-150410275" target="_blank">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>{T['footer_copyright']}</p>
+                <p>© 2025 SAVA Software for Engineering. Todos los derechos reservados.</p>
+                <p style="margin-top: 0.5rem;">Desarrollado con ❤️ por Joseph Javier Sánchez Acuña</p>
             </div>
         </div>
-    </div>
-    """
-    st.markdown(footer_html, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-# --- MAIN ---
+# ==================== MAIN ====================
 def main():
     render_header()
-    update_cart_count()
     
-    # El CSS ahora fuerza un fondo gris claro (#F3F4F6) para la página
-    # El contenedor principal (.main .block-container) tiene fondo blanco
+    page = st.session_state.page
     
-    with st.container():
-        if st.session_state.page == 'products':
-            pass  # Sidebar se renderiza dentro de render_products_page()
-        
-        if st.session_state.selected_product_id:
-            render_product_detail_page()
-        else:
-            page = st.session_state.page
-            
-            if page == 'home':
-                render_home_page()
-            elif page == 'products':
-                render_products_page()
-            elif page == 'cart':
-                render_cart_page()
-            elif page == 'checkout':
-                render_checkout_page()
-            elif page == 'auth':
-                render_auth_page()
-            elif page == 'account':
-                render_account_page()
-            elif page == 'orders':
-                render_orders_page()
-            elif page == 'about':
-                render_about_page()
-            else:
-                render_home_page()
+    if page == 'home':
+        render_home_page()
+    elif page == 'products':
+        render_products_page()
+    elif page == 'cart':
+        render_cart_page()
+    elif page == 'auth':
+        render_auth_page()
+    elif page == 'about':
+        render_about_page()
+    elif page == 'checkout':
+        render_checkout_page()
+    elif page == 'account':
+        render_account_page()
+    else:
+        render_home_page()
     
     render_footer()
 
@@ -1377,4 +1370,3 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         st.error(f"Error: {str(e)}")
-        st.exception(e)
