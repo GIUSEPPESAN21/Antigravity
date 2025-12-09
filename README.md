@@ -1,17 +1,30 @@
-[README.md](https://github.com/user-attachments/files/23570727/README.md)
-# E-Commerce Platform
+# SAVA E-Commerce Platform 🛍️
 
-A professional e-commerce platform built with Streamlit, Firebase, and Python. Inspired by MercadoLibre, Amazon, and Temu.
+> A modern, scalable e-commerce platform built with Streamlit, Firebase, and Python. Featuring a clean design inspired by MercadoLibre with comprehensive security and testing.
 
-## Features
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit]( https://img.shields.io/badge/Streamlit-1.29+-red.svg)](https://streamlit.io)
+[![Firebase](https://img.shields.io/badge/Firebase-Latest-orange.svg)](https://firebase.google.com)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-- 🛒 Product catalog with search and filtering
-- 🛍️ Shopping cart management
-- 💳 Secure checkout process
-- 👤 User authentication and accounts
-- 📦 Order management
-- 🔍 Advanced product search
-- 📱 Responsive design
+## ✨ Features
+
+### Core Functionality
+- 🛒 **Product Catalog** - Browse, search, and filter products
+- 🛍️ **Shopping Cart** - Add, update, and manage cart items
+- 💳 **Secure Checkout** - Complete purchase with shipping and tax calculation
+- 👤 **User Authentication** - Sign up, sign in, and account management
+- 📦 **Order Tracking** - View order history and status
+- 🔍 **Advanced Search** - Search products by name, category, and more
+- 📱 **Responsive Design** - Optimized for desktop and mobile
+
+### Technical Features
+- 🔒 **Security** - Environment-based configuration and secure secrets management
+- 📝 **Logging** - Centralized logging with file rotation
+- ⚠️ **Error Handling** - Comprehensive error handling and user-friendly messages
+- 🧪 **Testing** - Unit and integration tests with pytest
+- 🚀 **CI/CD** - Automated testing and deployment with GitHub Actions
+- 🌐 **Bilingual** - Spanish and English language support
 
 ## Tech Stack
 
@@ -22,12 +35,14 @@ A professional e-commerce platform built with Streamlit, Firebase, and Python. I
 - **Storage:** Firebase Storage
 - **Hosting:** Streamlit Cloud
 
-## Prerequisites
+## 🚀 Quick Start
 
-- Python 3.8+
-- Firebase project with Firestore, Authentication, and Storage enabled
-- Google Cloud account (for Firebase)
-- Streamlit Cloud account (for deployment)
+### Prerequisites
+
+- Python 3.9 or higher
+- Git
+- Firebase account (free tier works fine)
+- Code editor (VS Code recommended)
 
 ## Installation
 
@@ -118,33 +133,51 @@ mkdir -p .streamlit
 streamlit run app.py
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-/
+ecommerce-platform/
 ├── app.py                      # Main application entry point
-├── requirements.txt            # Python dependencies
-├── .gitignore                 # Git ignore file
-├── README.md                  # This file
-├── firebase_config.py         # Firebase configuration (legacy - preserved)
-├── gemini_client.py           # Gemini client (legacy - preserved)
-├── components/                # UI components
-│   ├── __init__.py
-│   ├── auth.py                # Authentication components
-│   ├── product_card.py        # Product card component
-│   ├── product_list.py        # Product list component
-│   ├── cart_summary.py        # Cart summary component
-│   └── checkout_form.py       # Checkout form component
-├── services/                  # Business logic services
-│   ├── __init__.py
-│   └── firebase_service.py    # Firebase service
-├── utils/                     # Utility functions
-│   ├── __init__.py
-│   ├── validators.py          # Input validation utilities
-│   └── formatters.py          # Data formatting utilities
-└── config/                    # Configuration
-    ├── __init__.py
-    └── settings.py            # Application settings
+├── config.py                  # Environment configuration
+├── requirements.txt           # Python dependencies
+├── pyproject.toml            # Development tools configuration
+├── .env.example              # Environment variables template
+├── .gitignore                # Git ignore patterns
+├── CONTRIBUTING.md           # Contributing guidelines
+├── CHANGELOG.md              # Version history
+├── README.md                 # This file
+│
+├── components/               # Reusable UI components
+│   ├── auth.py              # Authentication forms
+│   ├── product_card.py      # Product card display
+│   ├── product_list.py      # Product grid layout
+│   ├── cart_summary.py      # Cart summary  widget
+│   ├── checkout_form.py     # Checkout form
+│   └── about.py             # About page content
+│
+├── services/                 # Business logic layer
+│   ├── firebase_service.py  # Firebase operations
+│   └── auth_service.py      # Authentication service
+│
+├── utils/                    # Utility functions
+│   ├── validators.py        # Input validation
+│   ├── formatters.py        # Data formatting
+│   ├── logger.py            # Logging configuration
+│   └── error_handler.py     # Error handling
+│
+├── tests/                    # Test suite
+│   ├── conftest.py          # Pytest fixtures
+│   ├── test_config.py       # Config tests
+│   └── test_error_handler.py # Error handler tests
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml           # CI/CD pipeline
+│
+├── static/
+│   └── uploads/            # User uploads (gitignored)
+│
+└── logs/                     # Application logs (gitignored)
 ```
 
 ## Firebase Firestore Structure
@@ -206,17 +239,57 @@ service cloud.firestore {
 }
 ```
 
-## Usage
+## 📖 Usage
 
-1. Sign up or sign in to create an account
-2. Browse products on the home page or products page
-3. Use the search bar to find specific products
-4. Filter products by category
-5. Click on a product to view details
-6. Add products to your cart
-7. Review your cart and proceed to checkout
-8. Complete the checkout process with shipping and payment information
-9. View your orders in the account section
+### For End Users
+
+1. **Browse Products** - Explore the product catalog on the home page
+2. **Search & Filter** - Use search bar and category filters
+3. **View Details** - Click on products to see full information
+4. **Add to Cart** - Add desired products to your shopping cart
+5. **Checkout** - Complete purchase with shipping information
+6. **Track Orders** - Monitor order status in your account
+
+### For Developers
+
+#### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov
+
+# Run specific test file
+pytest tests/test_config.py
+```
+
+#### Code Formatting
+
+```bash
+# Format code
+black .
+isort .
+
+# Check style
+flake8 .
+
+# Type checking
+mypy .
+```
+
+#### Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```bash
+ENVIRONMENT=development
+DEBUG=True
+SECRET_KEY=your-secret-key-change-in-production
+FIREBASE_SERVICE_ACCOUNT_PATH=path/to/service-account.json
+FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
+```
 
 ## Deployment
 
@@ -227,10 +300,58 @@ This application is designed to run 100% in the cloud on Streamlit Cloud. No loc
 3. Configure secrets
 4. Deploy!
 
-## License
+## 🔒 Security Best Practices
 
-MIT License
+- Never commit `.env` files or Firebase credentials
+- Use environment variables for all sensitive data
+- Validate all user inputs
+- Keep dependencies updated
+- Review security rules regularly
+- Use HTTPS in production
+- Implement rate limiting for production
 
-## Support
+## 🤝 Contributing
 
-For issues and questions, please open an issue on GitHub.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+### Quick Contribution Guide
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`pytest`)
+5. Commit your changes (`git commit -m 'feat: Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Joseph Javier Sánchez Acuña (GIUSEPPESAN21)**
+- GitHub: [@GIUSEPPESAN21](https://github.com/GIUSEPPESAN21)
+- LinkedIn: [Joseph Javier Sánchez Acuña](https://www.linkedin.com/in/joseph-javier-sánchez-acuña-150410275)
+- Organization: SAVA Software for Engineering
+
+## 🙏 Support
+
+If you find this project helpful, please consider:
+
+- ⭐ Starring the repository
+- 🐛 Reporting bugs
+- 💡 Suggesting new features
+- 📖 Improving documentation
+
+For issues and questions, please [open an issue](https://github.com/GIUSEPPESAN21/ecommerce-platform/issues) on GitHub.
+
+## 📚 Additional Documentation
+
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [API Documentation](#) (Coming soon)
+
+---
+
+© 2025 SAVA Software for Engineering. All rights reserved.
