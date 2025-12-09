@@ -702,7 +702,7 @@ st.markdown("""
             border-radius: var(--radius-md);
         }
     </style>
-\"\"\", unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # --- TEXTOS BILINGÜES MEJORADOS (ES/EN) ---
 TEXTS = {
